@@ -150,3 +150,43 @@ window.addEventListener('scroll', () => {
     if (!header) return;
     header.style.boxShadow = window.scrollY > 0 ? '0 25px 60px rgba(0, 0, 0, 0.08)' : 'none';
 });
+
+
+// ========== CONTACT FORM ==========
+const contactForm = document.getElementById('contactForm');
+const formFeedback = document.getElementById('formFeedback');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('contactName').value;
+        const email = document.getElementById('contactEmail').value;
+        const message = document.getElementById('contactMessage').value;
+
+        // Build mailto link with form data
+        const subject = encodeURIComponent('Message from ' + name);
+        const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message);
+        const mailtoLink = 'mailto:cuison.kobeluisg10@gmail.com?subject=' + subject + '&body=' + body;
+
+        // Show feedback
+        if (formFeedback) {
+            formFeedback.classList.add('show');
+        }
+
+        // Open mailto after a short delay
+        setTimeout(() => {
+            window.location.href = mailtoLink;
+        }, 600);
+
+        // Reset form
+        contactForm.reset();
+
+        // Hide feedback after 5 seconds
+        setTimeout(() => {
+            if (formFeedback) {
+                formFeedback.classList.remove('show');
+            }
+        }, 5000);
+    });
+}
